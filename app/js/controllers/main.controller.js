@@ -11,62 +11,51 @@
     function MainController(WeatherFactory, toastr) {
         var main = this;
         main.title = 'MainController';
-
-        main.test = "This is a test.";
-
         main.history = [];
 
         
-
-        main.getCityData = function(city) {
-        	console.log('getCityData running...' + city)
+    main.getCityData = function(city) {
+        	//Call factory to get weather data by city
         	WeatherFactory.getWeatherData(city).then(
 	        function(response) {
 
-                var inputCity = main.city.toLowerCase();
+                // create variables to confirm the returned city name matches what was typed in
+                var inputCity = city.toLowerCase();
                 var responseCity = response.data.name;
                 responseCity = responseCity.toString();
                 responseCity = responseCity.toLowerCase();
+                console.log(responseCity);
+                console.log(inputCity);
                 
-
+                //If full city data is not returned or city requested does not match city returned do..
                 if(response.cod === 404 || inputCity !== responseCity) {
                      toastr.error('Invalid city name.', 'Error');
+                //weather data returned successfully.     
                 } else {
+                    //add weather data to scope
                     main.weatherData = response.data;
-                   console.log(main.weatherData);
+                    
+                    //create history array and set to scope
+                    var d = new Date();
+                    var date = d.toDateString();
+                    var time = d.toTimeString(); 
 
-                   var d = new Date();
-                   var date = d.toDateString();
-                   var time = d.toTimeString(); 
-
-                   time = time.substring(0,9);
+                    time = time.substring(0,9);
                    
-                   
-                   main.history.push({
-
-                    city: response.data.name,
-                    date: date,
-                    time: time
+                    main.history.push({
+                        city: response.data.name,
+                        date: date,
+                        time: time
                    });
 
                 }
-	        	
-	           
 	        },
 	        function(error) {
 
 
 	        }); 
         }
-
-
         
-
-        
-        
-
-        
-
         activate();
 
         ////////////////

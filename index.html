@@ -21,7 +21,7 @@
 		<h2>Project No. 8</h2>
 	</header>
 	</div>
-
+	
 	<div class="panel">
 		<div class="btn-group">
 			<button ng-click="main.getCityData('San Diego')" type="button" class="btn btn-primary">San Diego</button>
@@ -41,7 +41,7 @@
 				<div class="panel-heading lead">City Information:</div>
 				<div class="panel-body">
 					<div class="row text-center">
-						<p class="lead" id="cityName"><img src="http://openweathermap.org/img/w/{{main.weatherData.weather[0].icon}}.png">{{main.weatherData.name}}</p>
+						<p class="lead" id="cityName"><img ng-src="http://openweathermap.org/img/w/{{main.weatherData.weather[0].icon}}.png">{{main.weatherData.name}}</p>
 						
 						<p>Lat/Long: {{main.weatherData.coord.lon}}, {{main.weatherData.coord.lat}}</p>
 					</div>
