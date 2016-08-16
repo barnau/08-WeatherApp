@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<!-- endbower -->
+
+<!-- inject:css -->
+<link rel="stylesheet" href="/app/styles/styles.css">
+<!-- endinject -->
+</head>
+
+<body ng-controller="MainController as main">
+<div class="container">
+	<div class="jumbotron text-center">
+	<header>
+		<h1>Weather API</h1>
+		<h2>Project No. 8</h2>
+	</header>
+	</div>
+
+	<div class="panel">
+		<div class="btn-group">
+			<button ng-click="main.getCityData('San Diego')" type="button" class="btn btn-primary">San Diego</button>
+  			<button ng-click="main.getCityData('New York')" type="button" class="btn btn-primary">New York</button>
+  			<button ng-click="main.getCityData('Washington')" type="button" class="btn btn-primary">Washington</button>
+  			<button ng-click="main.getCityData('London')" type="button" class="btn btn-primary">London</button>
+  			<button ng-click="main.getCityData('Tokyo')" type="button" class="btn btn-primary">Tokyo</button>
+		</div>
+		<div class="input-group input-group-lg">
+			<input ng-model="main.city"  class="form-control" type="text" placeholder="Enter Location">
+			<span ng-click="main.getCityData(main.city)" class="input-group-addon">Go!</span>
+		</div>
+	</div>
+	<div clas="row">
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading lead">City Information:</div>
+				<div class="panel-body">
+					<div class="row text-center">
+						<p class="lead" id="cityName"><img src="http://openweathermap.org/img/w/{{main.weatherData.weather[0].icon}}.png">{{main.weatherData.name}}</p>
+						
+						<p>Lat/Long: {{main.weatherData.coord.lon}}, {{main.weatherData.coord.lat}}</p>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 text-center"><strong>Temperature(F)</strong>
+
+						<p id="rowInputs">{{ main.weatherData.main.temp }}F</p>
+						</div>
+						
+						<div class="col-md-4 text-center"><strong>Pressure</strong>
+						<p id="rowInputs">{{ main.weatherData.main.pressure }}</p>
+						</div>
+						
+						<div class="col-md-4 text-center"><strong>Humidity</strong>
+						<p id="rowInputs">{{ main.weatherData.main.humidity }}%</p>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-md-4 text-center"><strong>Lowest Temp(F)</strong>
+						<p id="rowInputs">{{ main.weatherData.main.temp_min }}F</p>
+						</div>
+						
+						<div class="col-md-4 text-center"><strong>Highest temp(F)</strong>
+						<p id="rowInputs">{{ main.weatherData.main.temp_max }}F</p>
+						</div>
+						
+						<div class="col-md-4 text-center"><strong>Wind Speed</strong>
+						<p id="rowInputs">{{ main.weatherData.wind.speed }}mph</p>
+						</div>
+						
+					</div>
+				</div> 
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading lead">Search History:</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<tbody>
+								<tr ng-repeat="hist in main.history">
+									<td>{{hist.city}}</td>
+									<td class="text-right">{{hist.date}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>	
+			</div>
+		</div>	
+	</div>	
+</div>
+
+
+	
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endbower -->
+<!-- inject:js -->
+<script src="/app/js/modules/app.module.js"></script>
+<script src="/app/js/controllers/main.controller.js"></script>
+<script src="/app/js/factories/weatherData.factory.js"></script>
+<script src="/app/js/filters/temp.filters.js"></script>
+<!-- endinject -->
+</body>
+</html>
