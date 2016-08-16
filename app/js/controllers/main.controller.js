@@ -5,10 +5,10 @@
         .module('app')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['WeatherFactory'];
+    MainController.$inject = ['WeatherFactory', 'toastr'];
 
     /* @ngInject */
-    function MainController(WeatherFactory) {
+    function MainController(WeatherFactory, toastr) {
         var main = this;
         main.title = 'MainController';
 
@@ -22,20 +22,39 @@
         	console.log('getCityData running...' + city)
         	WeatherFactory.getWeatherData(city).then(
 	        function(response) {
+
+                var inputCity = main.city.toLowerCase();
+                var responseCity = response.data.name;
+                responseCity = responseCity.toString();
+                responseCity = responseCity.toLowerCase();
+                
+
+                if(response.cod === 404 || inputCity !== responseCity) {
+                     toastr.error('Invalid city name.', 'Error');
+                } else {
+                    main.weatherData = response.data;
+                   console.log(main.weatherData);
+
+                   var d = new Date();
+                   var date = d.toDateString();
+                   var time = d.toTimeString(); 
+
+                   time = time.substring(0,9);
+                   
+                   
+                   main.history.push({
+
+                    city: response.data.name,
+                    date: date,
+                    time: time
+                   });
+
+                }
 	        	
-	           main.weatherData = response.data;
-	           console.log(main.weatherData);	
-	           main.icon = "http://openweathermap.org/img/w/" + main.weatherData.weather[0].icon + ".png";
-
-	           console.log(main.icon);
 	           
-	           main.history.push({
-
-	           	city: response.data.name,
-	           	date: new Date()
-	           });
 	        },
 	        function(error) {
+
 
 	        }); 
         }

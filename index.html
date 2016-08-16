@@ -5,6 +5,7 @@
   <title>Weather App</title>
 <!-- bower:css -->
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
 <!-- endbower -->
 
 <!-- inject:css -->
@@ -85,7 +86,9 @@
 							<tbody>
 								<tr ng-repeat="hist in main.history">
 									<td>{{hist.city}}</td>
-									<td class="text-right">{{hist.date}}</td>
+									<td class="text-right">{{hist.date}}<br/>
+									{{hist.time}}
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -101,6 +104,7 @@
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 <!-- endbower -->
 <!-- inject:js -->
 <script src="/app/js/modules/app.module.js"></script>
